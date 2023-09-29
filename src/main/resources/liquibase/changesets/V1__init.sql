@@ -1,40 +1,54 @@
-create table if not exists users
+CREATE TABLE IF NOT EXISTS couriers
 (
-    id       bigserial primary key,
-    name     varchar(255) not null,
-    username varchar(255) not null unique,
-    password varchar(255) not null
+    id   bigserial primary key,
+    type varchar(20)
 );
 
-create table if not exists tasks
+CREATE TABLE IF NOT EXISTS orders
 (
-    id              bigserial primary key,
-    title           varchar(255) not null,
-    description     varchar(255) null,
-    status          varchar(255) not null,
-    expiration_date timestamp    null
+    id     bigserial primary key,
+    cost   numeric not null,
+    region bigint  not null,
+    weight numeric not null,
+    order_complete_time timestamp
 );
 
-create table if not exists users_tasks
+CREATE TABLE IF NOT EXISTS intervals
 (
-    user_id bigint not null,
-    task_id bigint not null,
-    primary key (user_id, task_id),
-    constraint fk_users_tasks_users foreign key (user_id) references users (id) on delete cascade on update no action,
-    constraint fk_users_tasks_tasks foreign key (task_id) references tasks (id) on delete cascade on update no action
+    id        bigserial primary key,
+    from_time time not null,
+    to_time   time not null
 );
 
-create table if not exists users_roles
+CREATE TABLE IF NOT EXISTS orders_delivery_intervals
 (
-    user_id bigint       not null,
-    role    varchar(255) not null,
-    primary key (user_id, role),
-    constraint fk_users_roles_users foreign key (user_id) references users (id) on delete cascade on update no action
+    order_id             bigint not null,
+    delivery_interval_id bigint not null,
+    primary key (order_id, delivery_interval_id),
+    constraint orders_delivery_intervals_orders foreign key (order_id) references orders (id) on delete cascade on update no action,
+    constraint orders_delivery_intervals_intervals foreign key (delivery_interval_id) references intervals (id) on delete cascade on update no action
 );
 
-create table if not exists tasks_images
+CREATE TABLE IF NOT EXISTS couriers_regions
 (
-    task_id bigint       not null,
-    image   varchar(255) not null,
-    constraint fk_tasks_images_tasks foreign key (task_id) references tasks (id) on delete cascade on update no action
+    courier_id bigint,
+    region     bigint,
+    constraint couriers_regions_couriers foreign key (courier_id) references couriers (id) on delete cascade on update no action
+);
+
+CREATE table IF NOT EXISTS couriers_orders
+(
+    courier_id bigserial,
+    orders_id   bigserial,
+    primary key (courier_id, orders_id),
+    constraint couriers_orders_couriers foreign key (courier_id) references couriers (id) on delete cascade on update no action,
+    constraint couriers_orders_orders foreign key (orders_id) references orders (id) on delete cascade on update no action
+);
+
+CREATE TABLE IF NOT EXISTS couriers_working_hours(
+    courier_id bigserial,
+    working_hours_id bigserial,
+    primary key (courier_id, working_hours_id),
+    constraint couriers_working_hours_couriers foreign key (courier_id) references couriers (id) on delete cascade on update no action,
+    constraint couriers_working_hours_working_hours foreign key (working_hours_id) references intervals(id) on delete cascade on update no action
 );

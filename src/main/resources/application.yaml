@@ -1,1 +1,14 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=yandex_lavka
+    username: postgres
+    password: oleg2004
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: never
+      continue-on-error: false
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: yandex_lavka
