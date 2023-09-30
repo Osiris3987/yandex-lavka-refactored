@@ -5,5 +5,5 @@ import com.example.yandexlavkarefactored.web.dto.courier.CourierDto;
 
 public interface CourierMapper {
     Courier toEntity(CourierDto courierDto);
-    CourierDto toDto(CourierDto courierDto);
+    CourierDto toDto(Courier courierDto);
 }

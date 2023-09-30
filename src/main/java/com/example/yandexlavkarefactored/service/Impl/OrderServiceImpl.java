@@ -6,6 +6,7 @@ import com.example.yandexlavkarefactored.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,5 +27,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAll(Long offset, Long Limit) {
         return null;
+    }
+
+    @Override
+    public void assignOrderToCourier(Long courierId, Long orderId, LocalDateTime completeTime) {
+
     }
 }

@@ -9,5 +9,4 @@ public interface CourierService {
     void create(List<Courier> couriers);
     Courier get(Long id);
     List<Courier> getAll(Long offset, Long Limit);
-    void assignOrderToCourier(Long courierId, Long orderId, LocalDateTime completeTime);
 }

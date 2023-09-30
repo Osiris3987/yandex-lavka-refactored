@@ -26,8 +26,4 @@ public class CourierServiceImpl implements CourierService {
         return null;
     }
 
-    @Override
-    public void assignOrderToCourier(Long courierId, Long orderId, LocalDateTime completeTime) {
-
-    }
 }

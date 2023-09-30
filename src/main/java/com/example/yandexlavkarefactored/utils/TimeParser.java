@@ -5,6 +5,7 @@ import com.example.yandexlavkarefactored.domain.period.Period;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TimeParser {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
@@ -12,6 +13,10 @@ public class TimeParser {
 
     public static String mapPeriodToString(Period period) {
         return period.getFromTime().format(formatterToString) + "-" + period.getToTime().format(formatterToString);
+    }
+
+    public static List<String> mapPeriodsToString(List<Period> periods){
+        return periods.stream().map(TimeParser::mapPeriodToString).collect(Collectors.toList());
     }
 
     public static Period parsePeriod(String input) {
