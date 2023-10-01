@@ -1,13 +1,14 @@
 package com.example.yandexlavkarefactored.service;
 
 import com.example.yandexlavkarefactored.domain.order.Order;
+import com.example.yandexlavkarefactored.web.dto.order.OrderDto;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 public interface OrderService {
-    void create(Order order);
-    Order get(Long id);
-    List<Order> getAll(Long offset, Long Limit);
-    void assignOrderToCourier(Long courierId, Long orderId, LocalDateTime completeTime);
+    List<Order> create(List<Order> orders);
+    Order getById(Long id);
+    List<Order> getAll(int offset, int limit);
+    Order assignOrderToCourier(OrderDto.CompleteOrderDto completeOrderDto);
 }

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/couriers")
 @RequiredArgsConstructor
+@Validated
 public class CourierController {
     private final CourierService courierService;
     private final CourierMapper courierMapper;
